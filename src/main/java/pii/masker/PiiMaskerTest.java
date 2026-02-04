@@ -13,7 +13,7 @@ public class PiiMaskerTest {
         
         // 마스킹 대상 데이터
         String userID = UUID.randomUUID().toString();
-        String userName = "송민혁";
+        String userName = "송혁준";
         String wooriAccount = "1111-222-333333";
         String tempAccount1 = "111-222222-33-44-5";
         String tempAccount2 = "111-22-33333-4";
@@ -27,7 +27,7 @@ public class PiiMaskerTest {
         logger.warn("민감 정보 노출 주의: 고객 계좌번호2은 {} 입니다.", tempAccount1);
         logger.warn("민감 정보 노출 주의: 고객 계좌번호3은 {} 입니다.", tempAccount2);
         logger.warn("민감 정보 노출 주의: 이체금액은 {}원 입니다.", 1000000);
-        logger.warn("민감 정보 노출 주의: 상대 계좌번호는 {} 입니다.", "938002-00-916329");
+        logger.warn("민감 정보 노출 주의: 상대 계좌번호는 {} 입니다.", "1234567-09876543");
         
         
         logger.info("테스트가 완료되었습니다.");
