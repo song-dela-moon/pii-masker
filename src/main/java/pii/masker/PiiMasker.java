@@ -26,7 +26,7 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
         Matcher matcher = COMBINED_PATTERN.matcher(message);
 
         while (matcher.find()) {
-            String replacement;
+            String replacement = "";
             // 매칭된 그룹에 따라 마스킹 전략 분기
             if (matcher.group("name") != null) {
             	replacement = maskName(matcher.group("name"));
@@ -38,8 +38,6 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
             	replacement = maskAccountB(matcher.group("accB"));
             } else if (matcher.group("accC") != null) {
             	replacement = maskAccountC(matcher.group("accC"));
-            } else {
-                replacement = matcher.group();
             }
             matcher.appendReplacement(sb, replacement);
         }
@@ -74,7 +72,7 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
     	String regex = "([0-9a-fA-F]{8})-([0-9a-fA-F]{4})-(4[0-9a-fA-F]{3})-([89abAB][0-9a-fA-F]{3})-([0-9a-fA-F]{12})";
     	Matcher m = Pattern.compile(regex).matcher(text);
         if (m.find()) {
-            return m.group(1) + "-****-****-***-" + m.group(5).substring(0, 6) + "******" ;
+            return m.group(1) + "-****-****-****-" + m.group(5).substring(0, 6) + "******" ;
         }
         return text;
     }
