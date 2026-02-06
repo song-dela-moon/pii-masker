@@ -5,10 +5,7 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정규표현식 정의
-//    private static final String PHONE = "(?<phone>01[016789]-\\d{3,4}-\\d{4})";
-//    private static final String RRN = "(?<rrn>\\d{6}-[1-4]\\d{6})"; // 주민번호
-    
+public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정규표현식 정의    
     private static final String NAME = "(?<name>[고김남류박백선송오유이전정조하][가-힣]{1,3})(?=님)";
     private static final String UUID = "(?<uuid>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})"; // 주민번호
     private static final String ACCOUNT_A = "(?<accA>\\d{4}-\\d{3}-\\d{6})"; // 통합우리 계좌번호 형태
