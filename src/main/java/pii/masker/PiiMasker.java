@@ -6,8 +6,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정규표현식 정의
-//    private static final String PHONE = "(?<phone>01[016789]-\\d{3,4}-\\d{4})";
-//    private static final String RRN = "(?<rrn>\\d{6}-[1-4]\\d{6})"; // 주민번호
     
     private static final String NAME = "(?<name>[고김남류박백선송오유이전정조하][가-힣]{1,3})(?=님)";
     private static final String UUID = "(?<uuid>[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})"; // 주민번호
@@ -29,7 +27,7 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
         Matcher matcher = COMBINED_PATTERN.matcher(message);
 
         while (matcher.find()) {
-            String replacement;
+            String replacement = "";
             // 매칭된 그룹에 따라 마스킹 전략 분기
             if (matcher.group("name") != null) {
             	replacement = maskName(matcher.group("name"));
@@ -41,8 +39,6 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
             	replacement = maskAccountB(matcher.group("accB"));
             } else if (matcher.group("accC") != null) {
             	replacement = maskAccountC(matcher.group("accC"));
-            } else {
-                replacement = matcher.group();
             }
             matcher.appendReplacement(sb, replacement);
         }
@@ -77,7 +73,7 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
     	String regex = "([0-9a-fA-F]{8})-([0-9a-fA-F]{4})-(4[0-9a-fA-F]{3})-([89abAB][0-9a-fA-F]{3})-([0-9a-fA-F]{12})";
     	Matcher m = Pattern.compile(regex).matcher(text);
         if (m.find()) {
-            return m.group(1) + "-****-****-***-" + m.group(5).substring(0, 6) + "******" ;
+            return m.group(1) + "-****-****-****-" + m.group(5).substring(0, 6) + "******" ;
         }
         return text;
     }
