@@ -21,7 +21,7 @@ public class PiiMasker extends MessageConverter {// 1. 각 개인정보별 정�
     @Override
     public String convert(ILoggingEvent event) {
         String message = event.getFormattedMessage();
-        if (message == null) return message;
+        if (message == null) return "";
 
         StringBuilder sb = new StringBuilder();
         Matcher matcher = COMBINED_PATTERN.matcher(message);
